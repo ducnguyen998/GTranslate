@@ -1,0 +1,117 @@
+﻿<Window x:Class="GTranslate.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:local="clr-namespace:GTranslate"
+	xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    mc:Ignorable="d"
+    Topmost="True" FontSize="22"
+    WindowStartupLocation="CenterScreen"
+    Title="(G-Translator-ver2) Inspection Innovation 1 Part(SDV)" Height="585" Width="1085" 
+        Background="Transparent">
+    <Grid Background="{DynamicResource PrimaryHueDarkBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Button Margin="0,0,10,0" Style="{StaticResource MaterialDesignRaisedButton}" ToolTip="Translate Text">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,2,4,0">
+								<materialDesign:PackIcon Kind="Translate" />
+                            </TextBlock>
+                            <TextBlock>Text</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Translate Documents">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,2,4,0">
+								<materialDesign:PackIcon Kind="FileDocument" />
+                            </TextBlock>
+                            <TextBlock>Documents</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        ToolTip="Translate Websites">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,2,4,0">
+								<materialDesign:PackIcon Kind="Web" />
+                            </TextBlock>
+                            <TextBlock>Websites</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Slider
+                    VerticalAlignment="Center"
+                    Margin="10"
+                    x:Name="sldFontSize"
+                    Minimum="12" Maximum="70"
+                    Style="{StaticResource MaterialDesignDiscreteSlider}"
+                    ToolTip="MaterialDesignDiscreteSlider"
+                    Value="25" Width="Auto" />
+            </Grid>
+            <Grid Grid.Column="2">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox Width="180" Margin="7"
+                            Padding="10,5,10,5"
+                            Background="White"
+                            ItemsSource="{Binding TranslateEngineCollection}"
+                            SelectedItem="{Binding SelectedTranslateEngine}"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                            FontSize="17"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <!-- Toolbars -->
+        <Grid Grid.Row="1">
+            <UniformGrid Columns="2">
+                <ToolBarTray>
+                    <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="True">
+                        <ListBox ItemsSource="{Binding LanguageCollection}" SelectedItem="{Binding TranslateAgent.From}"/>
+                        <Separator />
+                    </ToolBar>
+                </ToolBarTray>
+                <ToolBarTray>
+                    <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="True">
+                        <ListBox ItemsSource="{Binding LanguageCollection}" SelectedItem="{Binding TranslateAgent.To}"/>
+                        <Separator />
+                    </ToolBar>
+                </ToolBarTray>
+            </UniformGrid>
+        </Grid>
+        <!-- Texts -->
+        <Grid Grid.Row="2">
+            <UniformGrid Columns="2" Margin="8">
+                <UniformGrid.Resources>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="Height" Value="Auto"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalContentAlignment" Value="Top"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        <Setter Property="IsReadOnly" Value="True"/>
+                        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+                        <Setter Property="FontSize" Value="{Binding ElementName=sldFontSize, Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Style>
+                </UniformGrid.Resources>
+                <TextBox Text="{Binding TranslateAgent.Input}" Foreground="Gray" />
+                <TextBox Text="{Binding TranslateResult}" />
+            </UniformGrid>
+        </Grid>
+    </Grid>
+</Window>
