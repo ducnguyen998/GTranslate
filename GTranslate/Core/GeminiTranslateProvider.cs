@@ -82,6 +82,6 @@ namespace GTranslate.Core
             return jsonBody;
         }
 
-        private const string GEMINI_TRANSLATE_API_KEY = "AIzaSyCLqxI7ZHZ_h1XnzB6VzQggjBz5lB2qlrY";
+        private const string GEMINI_TRANSLATE_API_KEY = "YOUR_API_KEY_HERE";
     }
 }
